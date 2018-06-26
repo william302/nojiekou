@@ -1,0 +1,112 @@
+{% extends 'blog/base.html' %}
+{% load comments %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/mystyle.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="blog-comment">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="blog-comment">
+                    <hr/>
+                    <ul class="comments">
+                    <li class="clearfix">
+                      <img src="{{ comment.user.avatar_thumbnail.url }}" class="avatar rounded-circle" alt="">
+                      <div class="post-comments">
+                          <p class="meta">{{ comment.submit_date }}<a href="#">@{{ comment.user }}</a> says : <i class="float-right"></i></p>
+                          <p>
+                              {{ comment.comment }}
+                          </p>
+                      </div>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="blog-comment-form">
+    <div class="container">
+            {% if user.is_authenticated %}
+            {% get_comment_form for post as form %}
+            <form action="{% comment_form_target %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group col-md-6 offset-md-3" >
+                        <label for="id_comment"></label>
+                        <textarea class="form-control" placeholder="写下你的评论。。。" rows="6" name="comment" id="id_comment" ></textarea>
+                    </div>
+                    {{ form.honeypot }}
+                    {{ form.content_type }}
+                    {{ form.object_pk }}
+                    {{ form.timestamp }}
+                    {{ form.security_hash }}
+                    <input type="hidden" name="next" value="{% url 'detail' post.id %}" />
+{#                    <input class="btn-primary" type="submit" value="提交" id="id_submit" />#}
+                    <div class="offset-md-8">
+                        <button type="submit" class="btn btn-info" id="id_submit">提交</button>
+                    </div>
+            </form>
+            {% else %}
+                <div class="card text-center">
+                  <div class="card-header">
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">登录后回复</h5>
+                    <a href="{% url 'account_login' %}?next={{ request.path }}" class="btn btn-primary">登录</a>
+                  </div>
+                  <div class="card-footer text-muted">
+                  </div>
+                </div>
+            {% endif %}
+    </div>
+</section>
+
+{#<div class="container bootstrap snippet" xmlns="http://www.w3.org/1999/html">#}
+{#    <div class="row">#}
+{#		<div class="col-md-12">#}
+{#		    <div class="blog-comment">#}
+{#				<h3 class="text-success">Comments</h3>#}
+{#                <hr/>#}
+{#				<ul class="comments">#}
+{#				<li class="clearfix">#}
+{#				  <img src="{{ comment.user.avatar_thumbnail.url }}" class="avatar" alt="">#}
+{#				  <div class="post-comments">#}
+{#				      <p class="meta">{{ comment.submit_date }} <a href="#">{{ comment.user }}</a> says : <i class="float-right"><a href="#"></a></i></p>#}
+{#				      <p>#}
+{#				          {{ comment.comment }}#}
+{#				      </p>#}
+{#				  </div>#}
+{#				</li>#}
+{#				</ul>#}
+{#			</div>#}
+{#		</div>#}
+{#	</div>#}
+{#    {% get_comment_form for comment as form %}#}
+{#    <form action="{% comment_form_target %}" method="POST">#}
+{#        {% csrf_token %}#}
+{#        <div class="form-group col-md-6 offset-md-3" >#}
+{#            <label for="id_comment"></label>#}
+{#            <textarea class="form-control" placeholder="写下你的评论。。。" rows="6" name="comment" id="id_comment" ></textarea>#}
+{#        </div>#}
+{#        {{ form.honeypot }}#}
+{#        {{ form.content_type }}#}
+{#        {{ form.object_pk }}#}
+{#        {{ form.timestamp }}#}
+{#        {{ form.security_hash }}#}
+{#        <select name="parent" id="id_parent" style="visibility: hidden">#}
+{#            <option value="{{ comment.id }}" selected>{{ comment.comment }}</option>#}
+{#        </select>#}
+{#        <input type="hidden" name="next" value="{% url 'detail' post.id %}" />#}
+{#        <div class="offset-md-8">#}
+{#            <input class="btn btn-info" type="submit" value="提交" id="id_submit" />#}
+{#        </div>#}
+{#    </form>#}
+{#</div>#}
+{% endblock %}

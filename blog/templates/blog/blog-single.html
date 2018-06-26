@@ -1,0 +1,264 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load comments %}
+{% load blog_tags %}
+{% load mptt_tags %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/mystyle.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="bread-crome">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" class="prim">Home </a>
+                </li>
+                <li class="breadcrumb-item">
+                    {{ post.category }}
+                </li>
+            </ol>
+        </div>
+    </div>
+    <section class="blog-sec">
+        <div class="container">
+            <div class="main-content">
+                <div class="blog-single">
+                    <h1>Recent Blog Posts</h1>
+                    <div class="post_item">
+                        <img src="images/blog1.jpg" alt="blog">
+                        <a href="#" class="category-ttl">Health</a>
+                        <div class="shared-sec right">
+                            <ul>
+                                <li> Share On :</li>
+                                <li>
+                                    <a href="#"><span class="fab fa-facebook"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="fab fa-instagram"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="fab fa-twitter"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="fab fa-pinterest"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="fab fa-google-plus-g"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h2><a href="#">Girl walking on the road in early morning for mood.</a></h2>
+                        <ul class="post-tools">
+                            <li class="admin"><a href="#">Admin </a></li>
+                            <li class="date">23 Jan 2018</li>
+                        </ul>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type <a href="#">specimen book</a>. It has survived not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only </p>
+                        <blockquote>
+                            fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived
+                        </blockquote>
+                        <p>not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only five Lorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only </p>
+                        <p>fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived </p>
+                        <p>not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only five</p>
+                    </div>
+                </div>
+                <div class="realted-posts">
+                    <h2>You May Like These</h2>
+                    <ul>
+                        <li class="popular-posts">
+
+                                <div class="img-sec">
+                                    <figure style="background:url(./images/related1.jpg)no-repeat"></figure>
+                                    <!-- <img src="images/related1.jpg" alt="pop-post"> -->
+                                    <a href="#" class="category-ttl">Health</a>
+                                </div>
+                                <h3>Girl walking on the road in early morning for mood.</h3>
+                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>
+                                <ul class="post-tools">
+                                    <li class="admin"><a href="#">Admin </a></li>
+                                    <li class="date">23 Jan 2018</li>
+                                </ul>
+
+                        </li>
+                        <li class="popular-posts">
+
+                                <div class="img-sec">
+                                   <figure style="background:url(./images/related2.jpg)no-repeat"></figure>
+                                    <a href="#" class="category-ttl">Health</a>
+                                </div>
+                                <h3>Girl walking on the road in early morning for mood.</h3>
+                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>
+                                <ul class="post-tools">
+                                    <li class="admin"><a href="#">Admin </a></li>
+                                    <li class="date">23 Jan 2018</li>
+                                </ul>
+
+                        </li>
+
+                                       <li class="popular-posts">
+
+                                <div class="img-sec">
+                                    <figure style="background:url(./images/related2.jpg)no-repeat"></figure>
+                                    <!-- <img src="images/related1.jpg" alt="pop-post"> -->
+                                    <a href="#" class="category-ttl">Health</a>
+                                </div>
+                                <h3>Girl walking on the road in early morning for mood.</h3>
+                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>
+                                <ul class="post-tools">
+                                    <li class="admin"><a href="#">Admin </a></li>
+                                    <li class="date">23 Jan 2018</li>
+                                </ul>
+
+                        </li>
+                        <li class="popular-posts">
+
+                                <div class="img-sec">
+                                   <figure style="background:url(./images/related1.jpg)no-repeat"></figure>
+                                    <a href="#" class="category-ttl">Health</a>
+                                </div>
+                                <h3>Girl walking on the road in early morning for mood.</h3>
+                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>
+                                <ul class="post-tools">
+                                    <li class="admin"><a href="#">Admin </a></li>
+                                    <li class="date">23 Jan 2018</li>
+                                </ul>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <aside class="aside-sec">
+               <!--  <div class="ads-sec">
+                    <h2>Advertisement</h2>
+                    <img src="images/600-ad.jpg" alt="ad">
+                </div> -->
+                <div class="popular-posts">
+                    <h2>Popular Posts</h2>
+                    {% get_recent_posts as post_list %}
+                    {% for post in post_list %}
+                        <div class="p_post-item">
+                        <div class="img-sec">
+                            <img src="images/pop-post1.jpg" alt="pop-post">
+                            <a href="#" class="category-ttl">{{ post.category }}</a>
+                        </div>
+                        <h3>{{ post.title }}</h3>
+                        <h6>{{ post.body }}</h6>
+                        <ul class="post-tools">
+                            <li class="admin"><a href="#">{{ post.author }} </a></li>
+                            <li class="date">{{ post.created_time }}</li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+
+{#                    <div class="p_post-item">#}
+{#                        <div class="img-sec">#}
+{#                            <img src="images/pop-post1.jpg" alt="pop-post">#}
+{#                            <a href="#" class="category-ttl">Health</a>#}
+{#                        </div>#}
+{#                        <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                        <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                        <ul class="post-tools">#}
+{#                            <li class="admin"><a href="#">Admin </a></li>#}
+{#                            <li class="date">23 Jan 2018</li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="p_post-item">#}
+{#                        <div class="img-sec">#}
+{#                            <img src="images/pop-post2.jpg" alt="pop-post">#}
+{#                            <a href="#" class="category-ttl">Health</a>#}
+{#                        </div>#}
+{#                        <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                        <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                        <ul class="post-tools">#}
+{#                            <li class="admin"><a href="#">Admin </a></li>#}
+{#                            <li class="date">23 Jan 2018</li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="p_post-item">#}
+{#                        <div class="img-sec">#}
+{#                            <img src="images/pop-post1.jpg" alt="pop-post">#}
+{#                            <a href="#" class="category-ttl">Health</a>#}
+{#                        </div>#}
+{#                        <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                        <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                        <ul class="post-tools">#}
+{#                            <li class="admin"><a href="#">Admin </a></li>#}
+{#                            <li class="date">23 Jan 2018</li>#}
+{#                        </ul>#}
+{#                    </div>#}
+                </div>
+            </aside>
+        </div>
+    </section>
+
+
+<section class="blog-comment-form">
+    <div class="container">
+            {% if user.is_authenticated %}
+            {% get_comment_form for post as form %}
+            <form action="{% comment_form_target %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group col-md-6 offset-md-3" >
+                        <label for="id_comment"></label>
+                        <textarea class="form-control" placeholder="写下你的评论。。。" rows="6" name="comment" id="id_comment" ></textarea>
+                    </div>
+                    {{ form.honeypot }}
+                    {{ form.content_type }}
+                    {{ form.object_pk }}
+                    {{ form.timestamp }}
+                    {{ form.security_hash }}
+                    <input type="hidden" name="next" value="{% url 'detail' post.id %}" />
+{#                    <input class="btn-primary" type="submit" value="提交" id="id_submit" />#}
+                    <div class="offset-md-8">
+                        <button type="submit" class="btn btn-info" id="id_submit">提交</button>
+                    </div>
+            </form>
+            {% else %}
+                <div class="card text-center">
+                  <div class="card-header">
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">登录后回复</h5>
+                    <a href="{% url 'account_login' %}?next={{ request.path }}" class="btn btn-primary">登录</a>
+                  </div>
+                  <div class="card-footer text-muted">
+                  </div>
+                </div>
+            {% endif %}
+    </div>
+</section>
+
+<section class="blog-comment">
+<div class="container">
+    <div class="row">
+		<div class="col-md-12">
+		    <div class="blog-comment">
+                <hr/>
+				<ul class="comments">
+                {% recursetree comment_list %}
+				<li class="clearfix">
+				  <img src="{{ node.user.avatar_thumbnail.url }}" class="avatar" alt="">
+				  <div class="post-comments">
+				      <p class="meta">{{ node.submit_date }}<a href="#">@{{ node.user }}</a> says : <i class="float-right"><a href="{% url 'reply' node.id %}"><small>回复</small></a></i></p>
+				      <p>
+				          {{ node.comment }}
+				      </p>
+				  </div>
+				</li>
+                {% if not node.is_leaf_node %}
+                    <ul class="children">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+				    </li>
+                {% endrecursetree %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+
+{% endblock %}

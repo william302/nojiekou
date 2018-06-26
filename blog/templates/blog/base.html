@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>News Theme</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load static %}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/bootstrap3.min.css' %}">#}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/bootstrap.min.css' %}">
+{#    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Roboto+Slab:300,400,700" rel="stylesheet">#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}">
+{#    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/mystyle.css' %}">#}
+    {% block head %}
+    {% endblock %}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/comment_snippet.css' %}">#}
+</head>
+
+<body>
+    <header>
+        <div class="news_ticker_sec">
+            <div class="container">
+                <div class="news_ticker">
+                    <div class="title">Breaking News</div>
+                    <div class="news-container">Julma wanted to conquer the world through the mystery they poses...<a href="#"> Read More</a></div>
+                    <div class="share-sec right">
+                        <ul>
+                            <li>
+                                <a href=""> <span class="fab fa-facebook"></span></a>
+                            </li>
+                            <li>
+                                <a href=""> <span class="fab fa-instagram"></span></a>
+                            </li>
+                            <li>
+                                <a href=""> <span class="fab fa-twitter"></span></a>
+                            </li>
+                            <li>
+                                <a href="#"> <span class="fab fa-pinterest"></span></a>
+                            </li>
+                            <li>
+                                <a href=""> <span class="fab fa-google-plus-g"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-menu">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'blog/images/logo.png' %}" alt="logo"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a href="{% url 'index' %}" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="videos.html" class="nav-link">Videos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="category.html" class="nav-link">categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="blog.html" class="nav-link">blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="contact.html" class="nav-link">contact</a>
+                            </li>
+
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Type your search here..." aria-label="Search">
+                            <span class="fa fa-search"></span>
+                        </form>
+                        {% if user.is_authenticated %}
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a href="{% url 'profile' user.id %}" class="nav-link">{{ user.username }}</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'account_logout' %}" class="btn btn-primary">注销</a>
+                                </li>
+                            </ul>
+                        {% else %}
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a href="{% url 'account_signup' %}" class="nav-link">没有账号？立即注册</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'account_login' %}?next={{ request.path }}" class="btn btn-primary">登录</a>
+                            </li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+        {% block content %}
+        {% endblock %}
+    <footer>
+        <div class="footer_copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-4 logo-side">
+                        <img src="{% static 'blog/images/logo.png' %}" alt="logo">
+                    </div>
+                    <div class="col-lg-6 col-md-8">
+                        <ul class="footer-menu">
+                            <li>
+                                <a href="{% url 'index' %}">Home</a>
+                            </li>
+                            <li>
+                                <a href="#">Videos</a>
+                            </li>
+                            <li>
+                                <a href="#">categories</a>
+                            </li>
+                            <li>
+                                <a href="#">blog</a>
+                            </li>
+                            <li>
+                                <a href="#">contact</a>
+                            </li>
+                        </ul>
+                        <h5 class="copy-right">(C) 2017. All Rights Reserved. News Magazine Theme.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+{#    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>#}
+    <script type="text/javascript" src="{% static 'blog/js/custom.js' %}"></script>
+</body>
+
+</html>

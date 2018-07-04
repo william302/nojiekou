@@ -1,12 +1,10 @@
 # from allauth.account.forms import SignupForm
 from django import forms
-from django.core.files.storage import FileSystemStorage
-import logging
 
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 
-from .models import MPTTComment
+from .models import MPTTComment, Category
 from django_comments.forms import CommentForm
 
 
@@ -30,5 +28,10 @@ class MPTTCommentForm(CommentForm):
         data['parent'] = self.cleaned_data['parent']
         return data
 
+
+class PostForm(forms.Form):
+    title = forms.CharField(label='标题', max_length=50)
+    body = forms.CharField(widget=forms.Textarea)
+    category = forms.ModelChoiceField(queryset=Category.objects.all())
 
 

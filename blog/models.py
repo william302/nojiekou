@@ -4,6 +4,7 @@ from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
 from django_comments.abstracts import CommentAbstractModel
 from mptt.models import MPTTModel, TreeForeignKey
+from django.utils import timezone
 
 
 # comment
@@ -56,8 +57,8 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=70)
     body = models.TextField()
-    created_time = models.DateTimeField()
-    modified_time = models.DateTimeField()
+    created_time = models.DateTimeField(default=timezone.now())
+    modified_time = models.DateTimeField(default=timezone.now(), blank=True)
     excerpt = models.CharField(max_length=200, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, blank=True)

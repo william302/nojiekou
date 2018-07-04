@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'crispy_forms',
     'mptt',
-    'actstream',
 ]
 SITE_ID = 1
 

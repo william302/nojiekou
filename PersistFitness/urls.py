@@ -25,5 +25,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('comments/', include('django_comments.urls')),
-    path('activity/', include('actstream.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

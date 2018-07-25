@@ -15,7 +15,6 @@
 {#    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/mystyle.css' %}">#}
     {% block head %}
     {% endblock %}
-{#    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/comment_snippet.css' %}">#}
 </head>
 
 <body>
@@ -23,26 +22,9 @@
         <div class="news_ticker_sec">
             <div class="container">
                 <div class="news_ticker">
-                    <div class="title">Breaking News</div>
-                    <div class="news-container">Julma wanted to conquer the world through the mystery they poses...<a href="#"> Read More</a></div>
+                    <div class="title"></div>
+                    <div class="news-container"></div>
                     <div class="share-sec right">
-                        <ul>
-                            <li>
-                                <a href=""> <span class="fab fa-facebook"></span></a>
-                            </li>
-                            <li>
-                                <a href=""> <span class="fab fa-instagram"></span></a>
-                            </li>
-                            <li>
-                                <a href=""> <span class="fab fa-twitter"></span></a>
-                            </li>
-                            <li>
-                                <a href="#"> <span class="fab fa-pinterest"></span></a>
-                            </li>
-                            <li>
-                                <a href=""> <span class="fab fa-google-plus-g"></span></a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -55,27 +37,17 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto">
+                        <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a href="{% url 'index' %}" class="nav-link">Home</a>
+                                <a href="{% url 'index' %}" class="nav-link">主页</a>
                             </li>
                             <li class="nav-item">
-                                <a href="videos.html" class="nav-link">Videos</a>
+                                <a href="{% url 'posts' %}" class="nav-link">讨论区</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="category.html" class="nav-link">categories</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="blog.html" class="nav-link">blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="contact.html" class="nav-link">contact</a>
-                            </li>
-
                         </ul>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Type your search here..." aria-label="Search">
-                            <span class="fa fa-search"></span>
+                        <form class="form-inline my-2 my-lg-0" role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
+                            <input class="form-control mr-sm-2 float-right" type="search" placeholder="输入你要搜索的内容..." aria-label="Search" name="q">
+                            <button class="btn btn-outline-danger" type="submit"><span class="fa fa-search"></span></button>
                         </form>
                         {% if user.is_authenticated %}
                             <ul class="navbar-nav ml-auto">
@@ -86,7 +58,7 @@
                                     <a href="{% url 'account_logout' %}" class="btn btn-primary">注销</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'create_post' %}" class="btn btn-primary">发表新文章</a>
+                                    <a href="{% url 'create_post' %}" class="btn btn-info ml-3">发表新文章</a>
                                 </li>
                             </ul>
                         {% else %}
@@ -137,10 +109,10 @@
             </div>
         </div>
     </footer>
-{#    <script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>#}
-{#    <script type="text/javascript" src="{% static 'blog/js/bootstrap.min.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'blog/js/bootstrap.min.js' %}"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-{#    <script type="text/javascript" src="{% static 'blog/js/custom.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'blog/js/custom.js' %}"></script>
 </body>
 
 </html>

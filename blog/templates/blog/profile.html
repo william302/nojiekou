@@ -5,9 +5,10 @@
 <div class="container bootstrap snippet">
     <div class="row">
         <div class="col-sm-10">
-            <h1>User name</h1></div>
+            <h1>{{ user.username }}</h1></div>
         <div class="col-sm-2">
-            <a href="/users" class="pull-right"><img title="profile image" class="rounded-circle img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png"></a>
+{#            <img title="profile image" class="rounded-circle img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png">#}
+            <img title="profile image" class="rounded-circle img-responsive" src="{{ user.avatar_thumbnail_big.url }}">
         </div>
     </div>
     <div class="row">
@@ -16,23 +17,23 @@
 
             <ul class="list-group">
                 <li class="list-group-item text-muted">Profile</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Joined</strong></span> 2.13.2014</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Last seen</strong></span> Yesterday</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Real name</strong></span> Joseph Doe</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>Joined</strong></span> 2.13.2014</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>Last seen</strong></span> Yesterday</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>Real name</strong></span> Joseph Doe</li>
 
             </ul>
 
             <div class="panel panel-default">
-                <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
-                <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+                <div class="panel-heading"> <i class="fa fa-link fa-1x"></i></div>
+                <div class="panel-body"></div>
             </div>
 
             <ul class="list-group">
                 <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>发布的文章</strong></span> {{ posts.count }}</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>Likes</strong></span> 13</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>Posts</strong></span> 37</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>Followers</strong></span> 78</li>
             </ul>
 
             <div class="panel panel-default">
@@ -47,9 +48,9 @@
         <div class="col-sm-9">
 
             <ul class="nav nav-tabs" id="myTab">
-                <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-                <li><a href="#messages" data-toggle="tab">Messages</a></li>
-                <li><a href="#settings" data-toggle="tab">Settings</a></li>
+                <li class="active ml-2"><a href="#home" data-toggle="tab">Home</a></li>
+                <li class="ml-2"><a href="#messages" data-toggle="tab">Messages</a></li>
+                <li class="ml-2"><a href="#settings" data-toggle="tab">Settings</a></li>
             </ul>
 
             <div class="tab-content">
@@ -59,105 +60,16 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Label 1</th>
-                                    <th>Label 2</th>
-                                    <th>Label 3</th>
-                                    <th>Label </th>
-                                    <th>Label </th>
-                                    <th>Label </th>
+                                    <th>最近的发布</th>
                                 </tr>
                             </thead>
                             <tbody id="items">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                    <td>Table cell</td>
-                                </tr>
+                                {% for post in posts %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td><a class="text-primary" href="{% url 'detail' post.id %}"> {{ post.title }}</a></td>
+                                    </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                         <hr>

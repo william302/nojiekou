@@ -59,10 +59,13 @@
                         </div>
                         <h2>{{ post.title }}</h2>
                         <ul class="post-tools">
-                            <li class="admin"><a href="#">{{ post.author }} </a></li>
+                            <li class="admin"><a class="text-primary" href="{% url 'profile' post.author.id %}">{{ post.author }} </a></li>
                             <li class="date">{{ post.created_time }}</li>
-                            <li><a href="{% url 'edit_post' post.id %}" class="btn btn-primary">重新编辑</a></li>
+
                         </ul>
+                        {% if post.author == user %}
+                            <a href="{% url 'edit_post' post.id %}" class="btn btn-primary btn-sm">重新编辑</a>
+                        {% endif %}
                         {{ post.body|safe }}
                     </div>
                 </div>
@@ -215,7 +218,7 @@
 				<li class="clearfix">
 				  <img src="{{ node.user.avatar_thumbnail.url }}" class="avatar" alt="">
 				  <div class="post-comments">
-				      <p class="meta">{{ node.submit_date }}<a href="#">@{{ node.user }}</a> says : <i class="float-right"><a href="{% url 'reply' node.id %}"><small>回复</small></a></i></p>
+				      <p class="meta">{{ node.submit_date }}<a href="{% url 'profile' post.author.id %}">@{{ node.user }}</a> says : <i class="float-right"><a href="{% url 'reply' node.id %}"><small>回复</small></a></i></p>
 				      <p>
 				          {{ node.comment|safe }}
 				      </p>

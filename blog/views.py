@@ -44,7 +44,9 @@ def reply(request, comment_id):
 
 def profile(request, user_id):
     user = get_object_or_404(User, pk=user_id)
-    context = {'user': user}
+    posts = Post.objects.all().filter(author=user)
+    context = {'user': user,
+               'posts': posts}
     return render(request, 'blog/profile.html', context)
 
 
@@ -84,3 +86,12 @@ def edit_post(request, post_id):
     else:
         form = PostForm(initial={'body': post.body, 'title': post.title, 'category': post.category})
     return render(request, 'blog/edit_post.html', {'form': form})
+
+
+def posts(request):
+    post_list = Post.objects.all()
+    return render(request, 'blog/blog.html', {'post_list': post_list})
+
+
+def category(request):
+    return

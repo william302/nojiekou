@@ -25,7 +25,7 @@ SECRET_KEY = 'h#gz)kf^gr!w*rs%l-3yb%u0*%!+84qb@^f8rl)=ep(a3m!z%j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -46,16 +46,17 @@ INSTALLED_APPS = [
     'blog',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.baidu',
-    'allauth.socialaccount.providers.weibo',
-    'allauth.socialaccount.providers.weixin',
-    'allauth.socialaccount.providers.github',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.baidu',
+    # 'allauth.socialaccount.providers.weibo',
+    # 'allauth.socialaccount.providers.weixin',
+    # 'allauth.socialaccount.providers.github',
     'django_comments',
     'imagekit',
     'django_extensions',
     'crispy_forms',
     'mptt',
+    'haystack',
 ]
 SITE_ID = 1
 
@@ -120,6 +121,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 
 # Internationalization

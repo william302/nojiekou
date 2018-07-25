@@ -7,16 +7,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-sm-12">
-                    <div class="big-img" style="background:url({% static 'blog/images/banner1.jpg' %})no-repeat;">
+                    <div class="big-img" style="background:url({% static 'blog/images/girls3.jpg' %})no-repeat;">
                         <div class="post-content">
                             <div class="content">
                                 <img src="{{ user.avatar_thumbnail.url }}">
                                 <a href="" class="category-ttl">{{ latest_post_list.0.category }}</a>
-                                <a href="{% url 'detail' latest_post_list.0.id %}">
+{#                                <a href="{% url 'detail' latest_post_list.0.id %}">#}
+                                <a href="{{ latest_post_list.0.get_absolute_url }}">
                                     <h3 class="post-ttl">{{ latest_post_list.0.title }}</h3>
                                 </a>
                                 <ul class="post-tools">
-                                    <li class="admin"><a href="#">{{ latest_post_list.0.user }} </a></li>
+                                    <li class="admin"><a href="{% url 'profile' latest_post_list.0.author.id %}">{{ latest_post_list.0.author }} </a></li>
                                     <li class="date">{{ latest_post_list.0.created_time }}</li>
                                     {% get_comment_count for latest_post_list.0 as comment_count %}
                                     <li class="comment">({{ comment_count }}) Comments</li>
@@ -26,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12">
-                    <div class="small-img" style="background:url(../../static/blog/images/banner2.jpg)no-repeat;">
+                    <div class="small-img" style="background:url({% static 'blog/images/banner2.jpg' %})no-repeat;">
                         <div class="post-content">
                             <div class="content">
                                 <a href="" class="category-ttl">{{ latest_post_list.1.category }}</a>
@@ -34,7 +35,7 @@
                                     <h3 class="post-ttl">{{ latest_post_list.1.title }}</h3>
                                 </a>
                                 <ul class="post-tools">
-                                    <li class="admin"> <a href="#"> {{ latest_post_list.1.user }} </a></li>
+                                    <li class="admin"> <a href="{% url 'profile' latest_post_list.0.author.id %}"> {{ latest_post_list.1.author }} </a></li>
                                     <li class="date">{{ latest_post_list.1.created_time }}</li>
                                     {% get_comment_count for latest_post_list.1 as comment_count %}
                                     <li class="comment">({{ comment_count }}) Comments</li>
@@ -42,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="small-img" style="background:url({% static 'blog/images/banner3.jpg' %})no-repeat;">
+                    <div class="small-img" style="background:url({% static 'blog/images/men3.jpg' %})no-repeat;">
                         <div class="post-content">
                             <div class="content">
                                 <a href="" class="category-ttl">Food</a>
@@ -71,7 +72,7 @@
             <div class="row">
                 <div class="col-lg-7 col-md-7 col-sm-12">
                     <div class="post-content">
-                        <figure style="background:url({% static 'blog/images/trending-1.jpg' %})no-repeat"></figure>
+                        <figure style="background:url({% static 'blog/images/girls4.jpg' %})no-repeat"></figure>
                         <a href="#" class="category-ttl">People & Business</a>
                         <ul class="post-tools right">
                             <li class="admin"> <a href="#"> Admin </a></li>
@@ -85,7 +86,7 @@
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-12">
                     <div class="post-content">
-                        <figure style="background:url({% static 'blog/images/trending-2.jpg' %})no-repeat"></figure>
+                        <figure style="background:url({% static 'blog/images/men5.jpg' %})no-repeat"></figure>
                         <a href="#" class="category-ttl">People & Business</a>
                         <a href="#">
                             <h3 class="post-ttl">Man working in building with welding machine</h3>
@@ -96,7 +97,7 @@
                     <div class="small-post">
                         <div class="row">
                             <div class="col-md-6 col-sm-4 col-5 img-sec">
-                                <figure style="background:url({% static 'blog/images/trending-3.jpg' %})no-repeat"></figure>
+                                <figure style="background:url({% static 'blog/images/men2.jpg' %})no-repeat"></figure>
                             </div>
                             <div class="col-md-6 col-sm-8 col-7">
                                 <a href="#">
@@ -117,7 +118,7 @@
                     <div class="small-post">
                         <div class="row">
                             <div class="col-md-6 col-sm-4 col-5 img-sec">
-                                <figure style="background:url({% static 'blog/images/trending-4.jpg' %})no-repeat"></figure>
+                                <figure style="background:url({% static 'blog/images/girls2.jpg' %})no-repeat"></figure>
                             </div>
                             <div class="col-md-6 col-sm-8 col-7">
                                 <a href="#">
@@ -163,7 +164,7 @@
             <div class="card-body">
               <h2 class="card-title">{{ post.title }}</h2>
               <p class="card-text">{{ post.body|safe|truncatechars_html:385 }}</p>
-              <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              <a href="{% url 'detail' post.id %}" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
               Posted on January 1, 2017 by

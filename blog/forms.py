@@ -31,7 +31,7 @@ class MPTTCommentForm(CommentForm):
 
 class PostForm(forms.Form):
     title = forms.CharField(label='标题', max_length=50)
-    body = forms.CharField(widget=forms.Textarea)
-    category = forms.ModelChoiceField(queryset=Category.objects.all())
+    body = forms.CharField(label='正文', widget=forms.Textarea)
+    category = forms.ModelChoiceField(label='分类', queryset=Category.objects.all())
 
 

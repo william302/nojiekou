@@ -5,6 +5,8 @@ from imagekit.processors import ResizeToFill
 from django_comments.abstracts import CommentAbstractModel
 from mptt.models import MPTTModel, TreeForeignKey
 from django.utils import timezone
+from django.urls import reverse
+from django.utils.six import python_2_unicode_compatible
 
 
 # comment
@@ -35,6 +37,10 @@ class User(AbstractUser):
                                       format='JPEG',
                                       options={'quality': 60})
 
+    avatar_thumbnail_big = ImageSpecField(source='avatar',
+                                          processors=[ResizeToFill(215, 215)],
+                                          format='JPEG',
+                                          options={'quality': 60})
 
     class Meta(AbstractUser.Meta):
         pass
@@ -57,8 +63,8 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=70)
     body = models.TextField()
-    created_time = models.DateTimeField(default=timezone.now())
-    modified_time = models.DateTimeField(default=timezone.now(), blank=True)
+    created_time = models.DateTimeField(default=timezone.now)
+    modified_time = models.DateTimeField(default=timezone.now, blank=True)
     excerpt = models.CharField(max_length=200, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, blank=True)
@@ -67,4 +73,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'post_id': self.pk})
 

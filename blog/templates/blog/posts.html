@@ -1,232 +1,516 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
+{% extends 'blog/base.html' %}
 
-  <head>
+{% block content %}
+    <section class="blog-sec">
+        <div class="container">
+            <div class="main-content">
+                <h1>{{ category.name }}</h1>
+                {% for post in post_list %}
+                    <div class="post_item">
+                        <a href="" class="category-ttl">{{ post.category.name }}</a>
+                        <div class="shared-sec right">
+                            <ul>
+                                <li> Share On :</li>
+                                <li>
+                                    <a href="#"><span class="fab fa-facebook"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="fab fa-instagram"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="fab fa-twitter"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="fab fa-pinterest"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="fab fa-google-plus-g"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h2><a href="{% url 'detail' post.id %}">{{ post.title }}</a></h2>
+                        <ul class="post-tools">
+                            <li class="admin"><a href="{% url 'profile' post.author.id %}">{{ post.author }} </a></li>
+                            <li class="date">{{ post.created_time }}</li>
+                        </ul>
+                        <h6>{{post.body|safe|truncatechars_html:215 }}</h6>
+                        <a href="{% url 'detail' post.id %}" class="readmore-btn">继续阅读...</a>
+                        <hr />
+                    </div>
+                {% endfor %}
+                <button class="load-more-btn">加载更多</button>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Blog Post - Start Bootstrap Template</title>
-
-    <!-- Bootstrap core CSS -->
-{#    <link href="{% static 'blog/css/bootstrap.min.css' %}" rel="stylesheet">#}
-
-    <!-- Custom styles for this template -->
-{#    <link href="css/blog-post.css" rel="stylesheet">#}
-
-  </head>
-
-  <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
+            </div>
+            <aside class="aside-sec">
+{#                <div class="ads-sec">#}
+{#                    <h2>Advertisement</h2>#}
+{#                    <img src="images/600-ad.jpg" alt="ad">#}
+{#                </div>#}
+                <div class="popular-posts">
+                    <h2>最新话题</h2>
+                    {% for post in latest_post_list %}
+                        <div class="p_post-item">
+                            <div class="img-sec">
+{#                                <img src="images/pop-post1.jpg" alt="pop">#}
+                                <div class="pt-4"></div>
+                                <a href="{% url 'category' post.category.id %}" class="category-ttl">{{ post.category }}</a>
+                            </div>
+                            <a href="{% url 'detail' post.id %}"><h3 class="text-primary">{{ post.title }}</h3></a>
+                            <h6>{{ post.body|safe|truncatechars_html:210 }}</h6>
+                            <ul class="post-tools">
+                                <li class="admin"><a href="{% url 'profile' post.author.id %}" class="text-primary">{{ post.author }} </a></li>
+                                <li class="date">{{ post.created_time|date:"Y年m月d日" }}</li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </div>
+            </aside>
         </div>
-      </div>
-    </nav>
+    </section>
+{% endblock %}
 
-    <!-- Page Content -->
-    <div class="container">
 
-      <div class="row">
 
-        <!-- Post Content Column -->
-        <div class="col-lg-8">
 
-          <!-- Title -->
-          <h1 class="mt-4">Post Title</h1>
 
-          <!-- Author -->
-          <p class="lead">
-            by
-            <a href="#">Start Bootstrap</a>
-          </p>
 
-          <hr>
 
-          <!-- Date/Time -->
-          <p>Posted on January 1, 2018 at 12:00 PM</p>
 
-          <hr>
 
-          <!-- Preview Image -->
-          <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
 
-          <hr>
 
-          <!-- Post Content -->
-          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
 
-          <blockquote class="blockquote">
-            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-            <footer class="blockquote-footer">Someone famous in
-              <cite title="Source Title">Source Title</cite>
-            </footer>
-          </blockquote>
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
 
-          <hr>
 
-          <!-- Comments Form -->
-          <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <textarea class="form-control" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </div>
-          </div>
 
-          <!-- Single Comment -->
-          <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-              <h5 class="mt-0">Commenter Name</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-          </div>
 
-          <!-- Comment with nested comments -->
-          <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-              <h5 class="mt-0">Commenter Name</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
-              <div class="media mt-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                  <h5 class="mt-0">Commenter Name</h5>
-                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-              </div>
 
-              <div class="media mt-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                  <h5 class="mt-0">Commenter Name</h5>
-                  Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-              </div>
 
-            </div>
-          </div>
 
-        </div>
 
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
 
-          <!-- Search Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Search</h5>
-            <div class="card-body">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="button">Go!</button>
-                </span>
-              </div>
-            </div>
-          </div>
 
-          <!-- Categories Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Categories</h5>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">Web Design</a>
-                    </li>
-                    <li>
-                      <a href="#">HTML</a>
-                    </li>
-                    <li>
-                      <a href="#">Freebies</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">JavaScript</a>
-                    </li>
-                    <li>
-                      <a href="#">CSS</a>
-                    </li>
-                    <li>
-                      <a href="#">Tutorials</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Side Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Side Widget</h5>
-            <div class="card-body">
-              You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-      <!-- /.row -->
-
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  </body>
-
-</html>
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{##}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>News Theme</title>#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    {% load static %}#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/bootstrap.min.css' %}">#}
+{#    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Roboto+Slab:300,400,700" rel="stylesheet">#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">#}
+{#    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}">#}
+{#</head>#}
+{##}
+{#<body>#}
+{#    <header>#}
+{#        <div class="news_ticker_sec">#}
+{#            <div class="container">#}
+{#                <div class="news_ticker">#}
+{#                    <div class="title">Breaking News</div>#}
+{#                    <div class="news-container">Julma wanted to conquer the world through the mystery they poses...<a href="#"> Read More</a></div>#}
+{#                    <div class="share-sec right">#}
+{#                        <ul>#}
+{#                            <li>#}
+{#                                <a href=""> <span class="fab fa-facebook"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href=""> <span class="fab fa-instagram"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href=""> <span class="fab fa-twitter"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href=""> <span class="fab fa-pinterest"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href=""> <span class="fab fa-google-plus-g"></span></a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="main-menu">#}
+{#            <div class="container">#}
+{#                <nav class="navbar navbar-expand-lg navbar-light">#}
+{#                    <a class="navbar-brand" href="#"><img src="images/logo.png" alt="logo"></a>#}
+{#                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">#}
+{#                        <span class="navbar-toggler-icon"></span>#}
+{#                    </button>#}
+{#                    <div class="collapse navbar-collapse" id="navbarSupportedContent">#}
+{#                        <ul class="navbar-nav ml-auto">#}
+{#                            <li class="nav-item active">#}
+{#                                <a href="index_raw.html" class="nav-link">Home</a>#}
+{#                            </li>#}
+{#                            <li class="navbar-item">#}
+{#                                <a href="videos.html" class="nav-link">Videos</a>#}
+{#                            </li>#}
+{#                            <li class="navbar-item">#}
+{#                                <a href="category.html" class="nav-link">categories</a>#}
+{#                            </li>#}
+{#                            <li class="navbar-item">#}
+{#                                <a href="blog.html" class="nav-link">blog</a>#}
+{#                            </li>#}
+{#                            <li class="navbar-item">#}
+{#                                <a href="contact.html" class="nav-link">contact</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                        <form class="form-inline my-2 my-lg-0">#}
+{#                            <input class="form-control mr-sm-2" type="search" placeholder="Type your search here..." aria-label="Search">#}
+{#                            <span class="fa fa-search"></span>#}
+{#                        </form>#}
+{#                    </div>#}
+{#                </nav>#}
+{#            </div>#}
+{#        </div>#}
+{#    </header>#}
+{#    <div class="bread-crome">#}
+{#        <div class="container">#}
+{#            <ol class="breadcrumb">#}
+{#                <li class="breadcrumb-item">#}
+{#                    <a href="#" class="prim">Home </a>#}
+{#                </li>#}
+{#                <li class="breadcrumb-item">#}
+{#                    Read Our Blog#}
+{#                </li>#}
+{#            </ol>#}
+{#        </div>#}
+{#    </div>#}
+{#    <section class="blog-sec">#}
+{#        <div class="container">#}
+{#            <div class="main-content">#}
+{#                <h1>Health & Fitness</h1>#}
+{#                <div class="post_item">#}
+{#                    <img src="images/blog1.jpg" alt="blog">#}
+{#                    <a href="#" class="category-ttl">Health</a>#}
+{#                    <div class="shared-sec right">#}
+{#                        <ul>#}
+{#                            <li> Share On :</li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-facebook"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-instagram"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-twitter"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-pinterest"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-google-plus-g"></span></a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <h2><a href="#">Girl walking on the road in early morning for mood.</a></h2>#}
+{#                    <ul class="post-tools">#}
+{#                        <li class="admin"><a href="#">Admin </a></li>#}
+{#                        <li class="date">23 Jan 2018</li>#}
+{#                    </ul>#}
+{#                    <h6>Lorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type <a href="#">specimen book</a>. It has survived not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only </h6>#}
+{#                    <a href="" class="readmore-btn">Continue...</a>#}
+{#                </div>#}
+{#                <div class="post_item">#}
+{#                    <img src="images/blog1.jpg" alt="blog">#}
+{#                    <a href="#" class="category-ttl">Health</a>#}
+{#                    <div class="shared-sec right">#}
+{#                        <ul>#}
+{#                            <li> Share On :</li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-facebook"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-instagram"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-twitter"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-pinterest"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-google-plus-g"></span></a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <h2><a href="#">Girl walking on the road in early morning for mood.</a></h2>#}
+{#                    <ul class="post-tools">#}
+{#                        <li class="admin"><a href="#">Admin </a></li>#}
+{#                        <li class="date">23 Jan 2018</li>#}
+{#                    </ul>#}
+{#                    <h6>Lorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type <a href="#">specimen book</a>. It has survived not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only </h6>#}
+{#                    <a href="" class="readmore-btn">Continue...</a>#}
+{#                </div>#}
+{#                <div class="post_item">#}
+{#                    <img src="images/blog1.jpg" alt="blog">#}
+{#                    <a href="#" class="category-ttl">Health</a>#}
+{#                    <div class="shared-sec right">#}
+{#                        <ul>#}
+{#                            <li> Share On :</li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-facebook"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-instagram"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-twitter"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-pinterest"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-google-plus-g"></span></a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <h2><a href="#">Girl walking on the road in early morning for mood.</a></h2>#}
+{#                    <ul class="post-tools">#}
+{#                        <li class="admin"><a href="#">Admin </a></li>#}
+{#                        <li class="date">23 Jan 2018</li>#}
+{#                    </ul>#}
+{#                    <h6>Lorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type <a href="#">specimen book</a>. It has survived not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only </h6>#}
+{#                    <a href="" class="readmore-btn">Continue...</a>#}
+{#                </div>#}
+{#                <div class="post_item">#}
+{#                    <img src="images/blog1.jpg" alt="blog">#}
+{#                    <a href="#" class="category-ttl">Health</a>#}
+{#                    <div class="shared-sec right">#}
+{#                        <ul>#}
+{#                            <li> Share On :</li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-facebook"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-instagram"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-twitter"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-pinterest"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-google-plus-g"></span></a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                      <h2><a href="#">Girl walking on the road in early morning for mood.</a></h2>#}
+{#                    <ul class="post-tools">#}
+{#                        <li class="admin"><a href="#">Admin </a></li>#}
+{#                        <li class="date">23 Jan 2018</li>#}
+{#                    </ul>#}
+{#                    <h6>Lorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type <a href="#">specimen book</a>. It has survived not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only </h6>#}
+{#                    <a href="" class="readmore-btn">Continue...</a>#}
+{#                </div>#}
+{#                <div class="post_item">#}
+{#                    <img src="images/blog1.jpg" alt="blog">#}
+{#                    <a href="#" class="category-ttl">Health</a>#}
+{#                    <div class="shared-sec right">#}
+{#                        <ul>#}
+{#                            <li> Share On :</li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-facebook"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-instagram"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-twitter"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-pinterest"></span></a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#"><span class="fab fa-google-plus-g"></span></a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                      <h2><a href="#">Girl walking on the road in early morning for mood.</a></h2>#}
+{#                    <ul class="post-tools">#}
+{#                        <li class="admin"><a href="#">Admin </a></li>#}
+{#                        <li class="date">23 Jan 2018</li>#}
+{#                    </ul>#}
+{#                    <h6>Lorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type <a href="#">specimen book</a>. It has survived not only fiveLorem Ipsum is simply dummy text of the printing and typetook a galley of type and scrambled it to make a type specimen book. It has survived not only </h6>#}
+{#                    <a href="" class="readmore-btn">Continue...</a>#}
+{#                </div>#}
+{#                <button class="load-more-btn">load more</button>#}
+{#            </div>#}
+{#            <aside class="aside-sec">#}
+{#                <div class="ads-sec">#}
+{#                    <h2>Advertisement</h2>#}
+{#                    <img src="images/600-ad.jpg" alt="ad">#}
+{#                </div>#}
+{#                <div class="popular-posts">#}
+{#                    <h2>Popular Posts</h2>#}
+{#                    <div class="p_post-item">#}
+{#                        <div class="img-sec">#}
+{#                            <img src="images/pop-post1.jpg" alt="pop-post">#}
+{#                            <a href="#" class="category-ttl">Health</a>#}
+{#                        </div>#}
+{#                        <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                        <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                        <ul class="post-tools">#}
+{#                            <li class="admin"><a href="#">Admin </a></li>#}
+{#                            <li class="date">23 Jan 2018</li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="p_post-item">#}
+{#                        <div class="img-sec">#}
+{#                            <img src="images/pop-post2.jpg" alt="pop-post">#}
+{#                            <a href="#" class="category-ttl">Health</a>#}
+{#                        </div>#}
+{#                        <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                        <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                        <ul class="post-tools">#}
+{#                            <li class="admin"><a href="#">Admin </a></li>#}
+{#                            <li class="date">23 Jan 2018</li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="p_post-item">#}
+{#                        <div class="img-sec">#}
+{#                            <img src="images/pop-post1.jpg" alt="pop-post">#}
+{#                            <a href="#" class="category-ttl">Health</a>#}
+{#                        </div>#}
+{#                        <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                        <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                        <ul class="post-tools">#}
+{#                            <li class="admin"><a href="#">Admin </a></li>#}
+{#                            <li class="date">23 Jan 2018</li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </aside>#}
+{#        </div>#}
+{#    </section>#}
+{#    <footer>#}
+{#        <div class="footer_widgets">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-md-4">#}
+{#                        <div class="pop-posts">#}
+{#                            <h2>Popular Posts</h2>#}
+{#                            <div class="post-content small-post">#}
+{#                                <figure style="background:url(./images/tab4.jpg)no-repeat"></figure>#}
+{#                                <div class="content">#}
+{#                                    <a href="#">#}
+{#                                        <h3 class="post-ttl">Girl walking on the road in early morning for mood.</h3>#}
+{#                                    </a>#}
+{#                                    <ul class="post-tools">#}
+{#                                        <li class="admin"><a href="#">Admin </a></li>#}
+{#                                        <li class="date">23 Jan 2018</li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="post-content small-post">#}
+{#                                <figure style="background:url(./images/tab5.jpg)no-repeat"></figure>#}
+{#                                <div class="content">#}
+{#                                    <a href="#">#}
+{#                                        <h3 class="post-ttl">Girl walking on the road in early morning for mood.</h3>#}
+{#                                    </a>#}
+{#                                    <ul class="post-tools">#}
+{#                                        <li class="admin"><a href="#">Admin </a></li>#}
+{#                                        <li class="date">23 Jan 2018</li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="post-content small-post">#}
+{#                                <figure style="background:url(./images/tab6.jpg)no-repeat"></figure>#}
+{#                                <div class="content">#}
+{#                                    <a href="#">#}
+{#                                        <h3 class="post-ttl">Girl walking on the road in early morning for mood.</h3>#}
+{#                                    </a>#}
+{#                                    <ul class="post-tools">#}
+{#                                        <li class="admin"><a href="#">Admin </a></li>#}
+{#                                        <li class="date">23 Jan 2018</li>#}
+{#                                    </ul>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-md-4 categories">#}
+{#                        <h2>Categories</h2>#}
+{#                        <ul>#}
+{#                            <li><a href="#">Business (3)</a></li>#}
+{#                            <li><a href="#">Corporation (2)</a></li>#}
+{#                            <li><a href="#">Critics (1)</a></li>#}
+{#                            <li><a href="#">Digital Business (2)</a></li>#}
+{#                            <li><a href="#">Beauty tips (7)</a></li>#}
+{#                            <li><a href="#">Collection (7)</a></li>#}
+{#                            <li><a href="#">Celebrity (7)</a></li>#}
+{#                            <li><a href="#">Cooking (20)</a></li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                    <div class="col-md-4 instragram">#}
+{#                        <h2>Instagram Feed</h2>#}
+{#                        <ul>#}
+{#                            <li>#}
+{#                                <figure style="background:url(./images/insta1.jpg)no-repeat"></figure>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <figure style="background:url(./images/insta2.jpg)no-repeat"></figure>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <figure style="background:url(./images/insta3.jpg)no-repeat"></figure>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <figure style="background:url(./images/insta4.jpg)no-repeat"></figure>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <figure style="background:url(./images/insta1.jpg)no-repeat"></figure>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <figure style="background:url(./images/insta2.jpg)no-repeat"></figure>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="footer_copyright">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-lg-6 col-md-4 logo-side">#}
+{#                        <img src="images/logo.png" alt="logo">#}
+{#                    </div>#}
+{#                    <div class="col-lg-6 col-md-8">#}
+{#                        <ul class="footer-menu">#}
+{#                            <li>#}
+{#                                <a href="#">Home</a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">Videos</a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">categories</a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">blog</a>#}
+{#                            </li>#}
+{#                            <li>#}
+{#                                <a href="#">contact</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                        <h5 class="copy-right">(C) 2017. All Rights Reserved. News Magazine Theme</h5>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </footer>#}
+{#    <script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'blog/js/bootstrap.min.js' %}">#}
+{#    </script>#}
+{#    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>#}
+{#    <script type="text/javascript" src="{% static 'blog/js/custom.js' %}"></script>#}
+{#</body>#}
+{##}
+{#</html>#}

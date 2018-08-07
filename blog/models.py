@@ -1,3 +1,4 @@
+from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from imagekit.models import ImageSpecField, ProcessedImageField
@@ -6,7 +7,6 @@ from django_comments.abstracts import CommentAbstractModel
 from mptt.models import MPTTModel, TreeForeignKey
 from django.utils import timezone
 from django.urls import reverse
-from django.utils.six import python_2_unicode_compatible
 
 
 # comment
@@ -23,9 +23,9 @@ class MPTTComment(MPTTModel, CommentAbstractModel):
 
 # User
 class User(AbstractUser):
-    nickname = models.CharField(max_length=50, blank=True)
-    signature = models.TextField(max_length=500, blank=True)
-    avatar = models.ImageField(upload_to='avatar', blank=True)
+    nickname = models.CharField('昵称', max_length=50, blank=True)
+    signature = models.TextField('签名', max_length=500, blank=True)
+    avatar = models.ImageField('头像', upload_to='avatar', blank=True)
     thumbnail = ProcessedImageField(upload_to='avatar',
                                     blank=True,
                                     processors=[ResizeToFill(100, 50)],
@@ -44,6 +44,7 @@ class User(AbstractUser):
 
     class Meta(AbstractUser.Meta):
         pass
+# User._meta.get_field('nickname').verbose_name = u'用户名'
 
 
 class Category(models.Model):
@@ -64,11 +65,12 @@ class Post(models.Model):
     title = models.CharField(max_length=70)
     body = models.TextField()
     created_time = models.DateTimeField(default=timezone.now)
-    modified_time = models.DateTimeField(default=timezone.now, blank=True)
+    modified_time = models.DateTimeField(auto_now=True)
     excerpt = models.CharField(max_length=200, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    views = models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to='post_image', blank=True)
 
     def __str__(self):
@@ -76,4 +78,10 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'post_id': self.pk})
+
+    def increase_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
+
+##Forum
 

@@ -1,17 +1,17 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-
-from .models import Post, MPTTComment, User
+from allauth.account.decorators import verified_email_required
+from .models import Post, MPTTComment, User, Category
 from django.core.paginator import Paginator
-from .forms import PostForm
+from .forms import PostForm, UserForm
 from django.utils import timezone
 import markdown
 
 
 def index(request):
-    latest_post_list = Post.objects.order_by('created_time')[:2]
-    post_list = Post.objects.order_by('created_time')[2:]
+    latest_post_list = Post.objects.order_by('created_time')[:5]
+    post_list = Post.objects.order_by('created_time')[5:]
     paginator = Paginator(post_list, 5)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
@@ -22,7 +22,7 @@ def index(request):
 
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    comment_list = MPTTComment.objects.all()
+    post.increase_views()
     post.body = markdown.markdown(post.body,
                                   extensions=[
                                       'markdown.extensions.extra',
@@ -30,7 +30,7 @@ def detail(request, post_id):
                                       'markdown.extensions.toc',
                                   ])
     context = {'post': post,
-               'comment_list': comment_list}
+                }
     return render(request, 'blog/blog-single.html', context)
 
 
@@ -43,13 +43,23 @@ def reply(request, comment_id):
 
 
 def profile(request, user_id):
-    user = get_object_or_404(User, pk=user_id)
-    posts = Post.objects.all().filter(author=user)
-    context = {'user': user,
+    profile_user = get_object_or_404(User, pk=user_id)
+    posts = Post.objects.all().filter(author=profile_user)
+    context = {'profile_user': profile_user,
                'posts': posts}
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form = UserForm(request.POST, instance=profile_user)
+            form.save()
+            return redirect('profile', user_id=profile_user.id)
+    else:
+        form = UserForm(instance=profile_user)
+    context.update({'form': form})
     return render(request, 'blog/profile.html', context)
 
 
+@verified_email_required
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -89,9 +99,20 @@ def edit_post(request, post_id):
 
 
 def posts(request):
+    category_list = Category.objects.all()
     post_list = Post.objects.all()
-    return render(request, 'blog/blog.html', {'post_list': post_list})
+    latest_post_list = Post.objects.order_by('-created_time')[:3]
+    context = {'post_list': post_list,
+               'category_list': category_list,
+               'latest_post_list': latest_post_list}
+    return render(request, 'blog/posts.html', context)
 
 
-def category(request):
-    return
+def category(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    post_list = Post.objects.filter(category=category)
+    latest_post_list = Post.objects.order_by('-created_time')[:3]
+    context = {'post_list': post_list,
+               'category': category,
+               'latest_post_list': latest_post_list}
+    return render(request, 'blog/category.html', context)

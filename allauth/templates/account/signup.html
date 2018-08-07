@@ -1,26 +1,35 @@
 {% extends "account/base.html" %}
 
+{% load static %}
 {% load i18n %}
 {% load crispy_forms_tags %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'blog/css/accounts.css' %}">
+{% endblock %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <h1>{% trans "Sign Up" %}</h1>
-
-            <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}" class="text-primary">sign in</a>.{% endblocktrans %}</p>
-
-            <form enctype="multipart/form-data" class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-              {% csrf_token %}
-              {{ form|crispy }}
-              {% if redirect_field_value %}
-              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-              {% endif %}
-              <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
-            </form>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">注册</h2>
+                    <form enctype="multipart/form-data" class="signup" id="signup_form" method="post" novalidate action="{% url 'account_signup' %}">
+                      {% csrf_token %}
+                      {{ form|crispy }}
+                      {% if redirect_field_value %}
+                      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                      {% endif %}
+                      <button class="btn btn-primary btn-block" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                    </form>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    已经有账号了？<a href="{{ login_url }}">登录</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

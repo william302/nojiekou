@@ -15,11 +15,11 @@
                     <hr/>
                     <ul class="comments">
                     <li class="clearfix">
-                      <img src="{{ comment.user.avatar_thumbnail.url }}" class="avatar rounded-circle" alt="">
+                      <img src="{{ comment.user.avatar_thumbnail.url }}" class="avatar rounded-circle" alt="{{ comment.user.username }}">
                       <div class="post-comments">
                           <p class="meta">{{ comment.submit_date }}<a href="#">@{{ comment.user }}</a> says : <i class="float-right"></i></p>
                           <p>
-                              {{ comment.comment }}
+                              {{ comment.comment|safe }}
                           </p>
                       </div>
                     </li>
@@ -43,6 +43,9 @@
                         <textarea class="form-control" placeholder="写下你的评论。。。" rows="6" name="comment" id="id_comment" ></textarea>
                     </div>
                     {{ form.honeypot }}
+                    <select name="parent" id="id_parent" style="visibility: hidden">
+                        <option value="{{ comment.id }}" selected>{{ comment.comment }}</option>
+                    </select>
                     {{ form.content_type }}
                     {{ form.object_pk }}
                     {{ form.timestamp }}

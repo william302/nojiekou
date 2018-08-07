@@ -4,12 +4,12 @@ from django import forms
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 
-from .models import MPTTComment, Category
+from .models import MPTTComment, Category, User
 from django_comments.forms import CommentForm
 
 
 class MySignupForm(forms.Form):
-    avatar = forms.ImageField(allow_empty_file=True)
+    avatar = forms.ImageField(label='头像', allow_empty_file=True)
 
     def signup(self, request, user):
         form = MySignupForm(request.POST, request.FILES)
@@ -33,5 +33,11 @@ class PostForm(forms.Form):
     title = forms.CharField(label='标题', max_length=50)
     body = forms.CharField(label='正文', widget=forms.Textarea)
     category = forms.ModelChoiceField(label='分类', queryset=Category.objects.all())
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['nickname', 'signature', 'avatar']
 
 

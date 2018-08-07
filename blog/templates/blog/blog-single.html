@@ -4,8 +4,10 @@
 {% load blog_tags %}
 {% load mptt_tags %}
 {% load crispy_forms_tags %}
+{% load humanize %}
 
 {% block head %}
+        <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/css/mystyle.css' %}">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -21,10 +23,10 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#" class="prim">Home </a>
+                    <a href="{% url 'index' %}" class="prim">主页 </a>
                 </li>
                 <li class="breadcrumb-item">
-                    {{ post.category }}
+                    <a href="{% url 'category' post.category.id %}">{{ post.category }}</a>
                 </li>
             </ol>
         </div>
@@ -33,10 +35,9 @@
         <div class="container">
             <div class="main-content">
                 <div class="blog-single">
-                    <h1>Recent Blog Posts</h1>
+                    <h1>{{ post.title }}</h1>
                     <div class="post_item">
-                        <img src="{% static 'blog/images/blog1.jpg' %}" alt="blog">
-                        <a href="#" class="category-ttl">Health</a>
+                        <a href="{% url 'category' post.category.id %}" class="category-ttl">{{ post.category }}</a>
                         <div class="shared-sec right">
                             <ul>
                                 <li> Share On :</li>
@@ -57,10 +58,10 @@
                                 </li>
                             </ul>
                         </div>
-                        <h2>{{ post.title }}</h2>
+{#                        <h2>{{ post.title }}</h2>#}
                         <ul class="post-tools">
                             <li class="admin"><a class="text-primary" href="{% url 'profile' post.author.id %}">{{ post.author }} </a></li>
-                            <li class="date">{{ post.created_time }}</li>
+                            <li class="date">{{ post.created_time|date:"Y年m月d日 H点i分" }}</li>
 
                         </ul>
                         {% if post.author == user %}
@@ -69,70 +70,70 @@
                         {{ post.body|safe }}
                     </div>
                 </div>
-                <div class="realted-posts">
-                    <h2>You May Like These</h2>
-                    <ul>
-                        <li class="popular-posts">
-
-                                <div class="img-sec">
-                                    <figure style="background:url({% static 'blog/images/related1.jpg' %})no-repeat"></figure>
-                                    <!-- <img src="images/related1.jpg" alt="pop-post"> -->
-                                    <a href="#" class="category-ttl">Health</a>
-                                </div>
-                                <h3>Girl walking on the road in early morning for mood.</h3>
-                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>
-                                <ul class="post-tools">
-                                    <li class="admin"><a href="#">Admin </a></li>
-                                    <li class="date">23 Jan 2018</li>
-                                </ul>
-
-                        </li>
-                        <li class="popular-posts">
-
-                                <div class="img-sec">
-                                   <figure style="background:url({% static 'blog/images/related2.jpg' %})no-repeat"></figure>
-                                    <a href="#" class="category-ttl">Health</a>
-                                </div>
-                                <h3>Girl walking on the road in early morning for mood.</h3>
-                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>
-                                <ul class="post-tools">
-                                    <li class="admin"><a href="#">Admin </a></li>
-                                    <li class="date">23 Jan 2018</li>
-                                </ul>
-
-                        </li>
-
-                                       <li class="popular-posts">
-
-                                <div class="img-sec">
-                                    <figure style="background:url({% static 'blog/images/related2.jpg' %})no-repeat"></figure>
-                                    <!-- <img src="images/related1.jpg" alt="pop-post"> -->
-                                    <a href="#" class="category-ttl">Health</a>
-                                </div>
-                                <h3>Girl walking on the road in early morning for mood.</h3>
-                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>
-                                <ul class="post-tools">
-                                    <li class="admin"><a href="#">Admin </a></li>
-                                    <li class="date">23 Jan 2018</li>
-                                </ul>
-
-                        </li>
-                        <li class="popular-posts">
-
-                                <div class="img-sec">
-                                   <figure style="background:url({% static 'blog/images/related1.jpg' %})no-repeat"></figure>
-                                    <a href="#" class="category-ttl">Health</a>
-                                </div>
-                                <h3>Girl walking on the road in early morning for mood.</h3>
-                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>
-                                <ul class="post-tools">
-                                    <li class="admin"><a href="#">Admin </a></li>
-                                    <li class="date">23 Jan 2018</li>
-                                </ul>
-
-                        </li>
-                    </ul>
-                </div>
+{#                <div class="realted-posts">#}
+{#                    <h2>You May Like These</h2>#}
+{#                    <ul>#}
+{#                        <li class="popular-posts">#}
+{##}
+{#                                <div class="img-sec">#}
+{#                                    <figure style="background:url({% static 'blog/images/related1.jpg' %})no-repeat"></figure>#}
+{#                                    <!-- <img src="images/related1.jpg" alt="pop-post"> -->#}
+{#                                    <a href="#" class="category-ttl">Health</a>#}
+{#                                </div>#}
+{#                                <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                                <ul class="post-tools">#}
+{#                                    <li class="admin"><a href="#">Admin </a></li>#}
+{#                                    <li class="date">23 Jan 2018</li>#}
+{#                                </ul>#}
+{##}
+{#                        </li>#}
+{#                        <li class="popular-posts">#}
+{##}
+{#                                <div class="img-sec">#}
+{#                                   <figure style="background:url({% static 'blog/images/related2.jpg' %})no-repeat"></figure>#}
+{#                                    <a href="#" class="category-ttl">Health</a>#}
+{#                                </div>#}
+{#                                <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                                <ul class="post-tools">#}
+{#                                    <li class="admin"><a href="#">Admin </a></li>#}
+{#                                    <li class="date">23 Jan 2018</li>#}
+{#                                </ul>#}
+{##}
+{#                        </li>#}
+{##}
+{#                                       <li class="popular-posts">#}
+{##}
+{#                                <div class="img-sec">#}
+{#                                    <figure style="background:url({% static 'blog/images/related2.jpg' %})no-repeat"></figure>#}
+{#                                    <!-- <img src="images/related1.jpg" alt="pop-post"> -->#}
+{#                                    <a href="#" class="category-ttl">Health</a>#}
+{#                                </div>#}
+{#                                <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                                <ul class="post-tools">#}
+{#                                    <li class="admin"><a href="#">Admin </a></li>#}
+{#                                    <li class="date">23 Jan 2018</li>#}
+{#                                </ul>#}
+{##}
+{#                        </li>#}
+{#                        <li class="popular-posts">#}
+{##}
+{#                                <div class="img-sec">#}
+{#                                   <figure style="background:url({% static 'blog/images/related1.jpg' %})no-repeat"></figure>#}
+{#                                    <a href="#" class="category-ttl">Health</a>#}
+{#                                </div>#}
+{#                                <h3>Girl walking on the road in early morning for mood.</h3>#}
+{#                                <h6>Lorem Ipsum is simply dummy text of the printing and typesetbeen the industry's standard dummy text ever since the 1500s, when an unknown printer</h6>#}
+{#                                <ul class="post-tools">#}
+{#                                    <li class="admin"><a href="#">Admin </a></li>#}
+{#                                    <li class="date">23 Jan 2018</li>#}
+{#                                </ul>#}
+{##}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </div>#}
             </div>
             <aside class="aside-sec">
                <!--  <div class="ads-sec">
@@ -146,13 +147,13 @@
                         <div class="p_post-item">
                         <div class="img-sec">
                             <img src="{% static 'blog/images/pop-post1.jpg' %}" alt="pop-post">
-                            <a href="#" class="category-ttl">{{ post.category }}</a>
+                            <a href="{% url 'category' post.category.id %}" class="category-ttl">{{ post.category }}</a>
                         </div>
-                        <h3>{{ post.title }}</h3>
+                        <a href="{% url 'detail' post.id %}"><h3 class="text-primary">{{ post.title }}</h3></a>
                         <h6>{{ post.body|safe|truncatechars_html:210 }}</h6>
                         <ul class="post-tools">
-                            <li class="admin"><a href="#">{{ post.author }} </a></li>
-                            <li class="date">{{ post.created_time }}</li>
+                            <li class="admin"><a href="{% url 'profile' post.author.id %}" class="text-primary">{{ post.author }} </a></li>
+                            <li class="date">{{ post.created_time|date:"Y年m月d日" }}</li>
                         </ul>
                     </div>
                     {% endfor %}
@@ -177,8 +178,7 @@
                     {{ form.object_pk }}
                     {{ form.timestamp }}
                     {{ form.security_hash }}
-                    <input type="hidden" name="next" value="{% url 'detail' post.id %}" />
-{#                    <input class="btn-primary" type="submit" value="提交" id="id_submit" />#}
+                    <input type="hidden" name="next" value="{% url 'detail' post.id %}"/>
                     <div class="offset-md-9">
                         <button type="submit" class="btn btn-info" id="id_submit">提交</button>
                     </div>
@@ -208,29 +208,38 @@
 </script>
 
 <section class="blog-comment">
+{% get_comment_list for post as comment_list %}
 <div class="container">
     <div class="row">
 		<div class="col-md-12">
 		    <div class="blog-comment">
                 <hr/>
 				<ul class="comments">
-                {% recursetree comment_list %}
-				<li class="clearfix">
-				  <img src="{{ node.user.avatar_thumbnail.url }}" class="avatar" alt="">
-				  <div class="post-comments">
-				      <p class="meta">{{ node.submit_date }}<a href="{% url 'profile' post.author.id %}">@{{ node.user }}</a> says : <i class="float-right"><a href="{% url 'reply' node.id %}"><small>回复</small></a></i></p>
-				      <p>
-				          {{ node.comment|safe }}
-				      </p>
-				  </div>
-{#				</li>#}
-                {% if not node.is_leaf_node %}
-                    <ul class="children">
-                        {{ children }}
-                    </ul>
+                {% if comment_list %}
+                    {% recursetree comment_list %}
+                    <li class="clearfix">
+                        <img src="{{ node.user.avatar_thumbnail.url }}" class="avatar rounded-circle" alt="{{ node.user.username }}">
+                        <div class="post-comments">
+                          <p class="meta">{{ node.submit_date|naturaltime }}
+                              <a href="{% url 'profile' post.author.id %}">@{{ node.user }}</a> says :
+                              <i class="float-right"><a href="{% url 'reply' node.id %}"><small>回复</small></a></i>
+                          </p>
+                          <p>
+                              {{ node.comment|safe }}
+                          </p>
+                        </div>
+                        {% if not node.is_leaf_node %}
+                            <ul class="children">
+                                {{ children }}
+                            </ul>
+                        {% endif %}
+                    </li>
+                    {% endrecursetree %}
+                {% else %}
+                    <li class="clearfix">
+                        <p class="text-center text-muted">暂时还没有评论...</p>
+                    </li>
                 {% endif %}
-				    </li>
-                {% endrecursetree %}
 				</ul>
 			</div>
 		</div>

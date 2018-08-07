@@ -22,6 +22,7 @@ def index(request):
 
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
+    latest_post_list = Post.objects.all().order_by('-created_time')[:2]
     post.increase_views()
     post.body = markdown.markdown(post.body,
                                   extensions=[
@@ -30,7 +31,7 @@ def detail(request, post_id):
                                       'markdown.extensions.toc',
                                   ])
     context = {'post': post,
-                }
+                'latest_post_list': latest_post_list}
     return render(request, 'blog/blog-single.html', context)
 
 

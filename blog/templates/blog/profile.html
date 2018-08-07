@@ -12,8 +12,11 @@
             <h1>{{ profile_user.username }}</h1></div>
 
         <div class="col-sm-2">
-{#            <img title="profile image" class="rounded-circle img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png">#}
-            <img title="profile image" class="rounded-circle img-responsive" src="{{ profile_user.avatar_thumbnail_big.url }}" alt="{{ profile_user.username }}">
+            {% if profile_user.avatar %}
+                <img title="profile image" class="rounded-circle img-responsive" src="{{ profile_user.avatar_thumbnail_big.url }}" alt="{{ profile_user.username }}">
+            {% else %}
+                <img title="profile image" class="rounded-circle img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+            {% endif %}
         </div>
     </div>
     <div class="row">

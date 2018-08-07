@@ -15,7 +15,11 @@
                     <hr/>
                     <ul class="comments">
                     <li class="clearfix">
-                      <img src="{{ comment.user.avatar_thumbnail.url }}" class="avatar rounded-circle" alt="{{ comment.user.username }}">
+                        {% if comment.user.avatar %}
+                            <img src="{{ comment.user.avatar_thumbnail.url }}" class="avatar rounded-circle" alt="{{ comment.user.username }}">
+                        {% else %}
+                            <img title="profile image" class="avatar rounded-circle" src="{% static 'blog/images/avatar1_100x100.png' %}">
+                        {% endif %}
                       <div class="post-comments">
                           <p class="meta">{{ comment.submit_date }}<a href="#">@{{ comment.user }}</a> says : <i class="float-right"></i></p>
                           <p>

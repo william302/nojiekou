@@ -28,7 +28,7 @@ class User(AbstractUser):
     avatar = models.ImageField('头像', upload_to='avatar', blank=True)
     thumbnail = ProcessedImageField(upload_to='avatar',
                                     blank=True,
-                                    processors=[ResizeToFill(100, 50)],
+                                    processors=[ResizeToFill(360, 360)],
                                     format='JPEG',
                                     options={'quality': 60})
 

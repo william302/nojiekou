@@ -171,7 +171,7 @@ AUTH_USER_MODEL = 'blog.User'
 
 # ACCOUNT_FORMS = {'signup': 'blog.forms.MySignupForm'}
 
-ACCOUNT_SIGNUP_FORM_CLASS = 'blog.forms.MySignupForm'
+# ACCOUNT_SIGNUP_FORM_CLASS = 'blog.forms.MySignupForm'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'D:/workspace/PersistFitness/media/'

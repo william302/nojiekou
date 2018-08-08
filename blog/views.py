@@ -49,9 +49,9 @@ def profile(request, user_id):
     context = {'profile_user': profile_user,
                'posts': posts}
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserForm(request.POST, request.FILES)
         if form.is_valid():
-            form = UserForm(request.POST, instance=profile_user)
+            form = UserForm(request.POST, request.FILES, instance=profile_user)
             form.save()
             return redirect('profile', user_id=profile_user.id)
     else:

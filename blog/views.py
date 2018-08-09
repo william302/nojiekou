@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from allauth.account.decorators import verified_email_required
+from django.contrib.auth.decorators import login_required
 from .models import Post, MPTTComment, User, Category
 from django.core.paginator import Paginator
 from .forms import PostForm, UserForm
@@ -60,7 +60,7 @@ def profile(request, user_id):
     return render(request, 'blog/profile.html', context)
 
 
-@verified_email_required
+@login_required
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)

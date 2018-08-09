@@ -108,7 +108,7 @@
                                     <h3 class="post-ttl">{{ latest_post_list.3.title }}</h3>
                                 </a>
                                 <h5 class="post-text">
-                                {{ latest_post_list.3.body|safe|truncatechars_html:215 }}
+                                {{ latest_post_list.3.body|safe|truncatechars_html:105 }}
                             </h5>
                                 <ul class="post-tools">
                                     <li class="admin"> <a href="{% url 'profile' latest_post_list.3.author.id %}"> {{ latest_post_list.3.author }} </a></li>
@@ -129,7 +129,7 @@
                                     <h3 class="post-ttl">{{ latest_post_list.4.title }}</h3>
                                 </a>
                                 <h5 class="post-text">
-                                {{ latest_post_list.4.body|safe|truncatechars_html:215 }}
+                                {{ latest_post_list.4.body|safe|truncatechars_html:105 }}
                             </h5>
                                 <ul class="post-tools">
                                     <li class="admin"> <a href="{% url 'profile' latest_post_list.4.author.id %}"> {{ latest_post_list.4.author }} </a></li>

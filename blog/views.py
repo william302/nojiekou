@@ -31,7 +31,7 @@ def detail(request, post_id):
                                       'markdown.extensions.toc',
                                   ])
     context = {'post': post,
-                'latest_post_list': latest_post_list}
+               'latest_post_list': latest_post_list}
     return render(request, 'blog/blog-single.html', context)
 
 
@@ -80,23 +80,21 @@ def create_post(request):
     return render(request, 'blog/create_post.html', {'form': form})
 
 
+@login_required()
 def edit_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            post.title = form.cleaned_data['title']
-            post.body = form.cleaned_data['body']
-            post.category = form.cleaned_data['category']
-            user = request.user
-            if user.is_authenticated:
-                post.save()
-                return HttpResponseRedirect(reverse('detail', args=[post.id]))
-            else:
-                return HttpResponse('请先登录')
+            # post.title = form.cleaned_data['title']
+            # post.body = form.cleaned_data['body']
+            # post.category = form.cleaned_data['category']
+            form = PostForm(request.POST, instance=post)
+            form.save()
+            return HttpResponseRedirect(reverse('detail', args=[post.id]))
     else:
-        form = PostForm(initial={'body': post.body, 'title': post.title, 'category': post.category})
-    return render(request, 'blog/edit_post.html', {'form': form})
+        form = PostForm(instance=post)
+    return render(request, 'blog/edit_post.html', {'form': form, 'post':post})
 
 
 def posts(request):

@@ -20,10 +20,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    # path('accounts/login/', auth_views.LoginView.as_view(template_name='account/login.html')),
     path('', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('comments/', include('django_comments.urls')),
     path('search/', include('haystack.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('summernote/', include('django_summernote.urls')),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

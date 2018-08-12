@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'mptt',
     'haystack',
+    'django_summernote',
 ]
 SITE_ID = 1
 
@@ -174,7 +175,7 @@ AUTH_USER_MODEL = 'blog.User'
 # ACCOUNT_SIGNUP_FORM_CLASS = 'blog.forms.MySignupForm'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'D:/workspace/PersistFitness/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
@@ -192,6 +193,12 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 DEFAULT_FROM_EMAIL = '没有借口 <noreply@nojiekou.com>'
 EMAIL_SUBJECT_PREFIX = '[没有借口] '
 
+SUMMERNOTE_CONFIG = {
+    'iframe': False,
+    'summernote': {
+        'lang': 'zh-CN'
+    }
+}
 
 # LOGGING = {
 #     'version': 1,

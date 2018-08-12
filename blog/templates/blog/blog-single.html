@@ -7,15 +7,7 @@
 {% load humanize %}
 
 {% block head %}
-        <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'blog/css/mystyle.css' %}">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
-    <script src="{% static 'blog/lang/summernote-zh-CN.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -62,7 +54,6 @@
                         <ul class="post-tools">
                             <li class="admin"><a class="text-primary" href="{% url 'profile' post.author.id %}">{{ post.author }} </a></li>
                             <li class="date">{{ post.created_time|date:"Y年m月d日 H点i分" }}</li>
-
                         </ul>
                         {% if post.author == user %}
                             <a href="{% url 'edit_post' post.id %}" class="btn btn-primary btn-sm">重新编辑</a>
@@ -106,10 +97,11 @@
             {% get_comment_form for post as form %}
             <form action="{% comment_form_target %}" method="POST">
                     {% csrf_token %}
-                    <div class="form-group col-md-8 offset-md-2" >
-                        <label for="id_comment"></label>
-                        <textarea class="form-control" placeholder="写下你的评论。。。" rows="10" name="comment" id="id_comment" ></textarea>
-                    </div>
+{#                    <div class="form-group col-md-8 offset-md-2" >#}
+{#                        <label for="id_comment"></label>#}
+{#                        <textarea class="form-control" placeholder="写下你的评论。。。" rows="10" name="comment" id="id_comment" ></textarea>#}
+{#                    </div>#}
+                    {{ form.comment }}
                     {{ form.honeypot }}
                     {{ form.content_type }}
                     {{ form.object_pk }}
@@ -137,19 +129,10 @@
     </div>
 </section>
 
-<script>
-  $('#id_comment').summernote({
-    placeholder: '写下你的评论。。。',
-    tabsize: 2,
-    height: 200,
-    lang: "zh-CN"
-  });
-</script>
-
 <section class="blog-comment">
 {% get_comment_list for post as comment_list %}
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
 		<div class="col-md-12">
 		    <div class="blog-comment">
                 <hr/>
@@ -189,5 +172,4 @@
 	</div>
 </div>
 </section>
-
 {% endblock %}

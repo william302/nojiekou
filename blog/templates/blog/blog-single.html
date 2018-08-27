@@ -30,26 +30,26 @@
                     <h1>{{ post.title }}</h1>
                     <div class="post_item">
                         <a href="{% url 'category' post.category.id %}" class="category-ttl">{{ post.category }}</a>
-                        <div class="shared-sec right">
-                            <ul>
-                                <li> Share On :</li>
-                                <li>
-                                    <a href="#"><span class="fab fa-facebook"></span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fab fa-instagram"></span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fab fa-twitter"></span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fab fa-pinterest"></span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="fab fa-google-plus-g"></span></a>
-                                </li>
-                            </ul>
-                        </div>
+{#                        <div class="shared-sec right">#}
+{#                            <ul>#}
+{#                                <li> Share On :</li>#}
+{#                                <li>#}
+{#                                    <a href="#"><span class="fa fa-qq"></span></a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="#"><span class="fab fa-instagram"></span></a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="#"><span class="fab fa-twitter"></span></a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="#"><span class="fab fa-pinterest"></span></a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="#"><span class="fab fa-google-plus-g"></span></a>#}
+{#                                </li>#}
+{#                            </ul>#}
+{#                        </div>#}
 {#                        <h2>{{ post.title }}</h2>#}
                         <ul class="post-tools">
                             <li class="admin"><a class="text-primary" href="{% url 'profile' post.author.id %}">{{ post.author }} </a></li>

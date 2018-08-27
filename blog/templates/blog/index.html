@@ -161,7 +161,7 @@
           </h1>
         {% for post in posts %}
             <div class="card mb-4">
-            <img class="card-img-top" src="{% static 'blog/images/girls1_gaitubao_com_749x397.jpg' %}" alt="Card image cap">
+{#            <img class="card-img-top" src="{% static 'blog/images/girls1_gaitubao_com_749x397.jpg' %}" alt="Card image cap">#}
             <div class="card-body">
               <h2 class="card-title">{{ post.title }}</h2>
               <p class="card-text">{{ post.body|safe|truncatechars_html:385 }}</p>

@@ -7,7 +7,8 @@ from django.core.paginator import Paginator
 from .forms import PostForm, UserForm
 from django.utils import timezone
 import markdown
-
+from rest_framework import generics
+from .serializers import PostSerializer
 
 def index(request):
     latest_post_list = Post.objects.order_by('created_time')[:5]
@@ -115,3 +116,14 @@ def category(request, category_id):
                'category': category,
                'latest_post_list': latest_post_list}
     return render(request, 'blog/category.html', context)
+
+
+# Restful api
+class PostList(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer

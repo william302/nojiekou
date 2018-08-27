@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'mptt',
     'haystack',
     'django_summernote',
+    'rest_framework',
 ]
 SITE_ID = 1
 
